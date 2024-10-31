@@ -98,7 +98,7 @@ if (! function_exists(' sync_process_links')) {
             if (!file_exists($export_file_name)) {
 
                 try {
-                    $content = shell_exec("wp eval-file {$path}index.php --url={$link} --skip-wordpress");
+                    $content = shell_exec("wp eval-file {$path}index.php --url={$link} --skip-wordpress --path={$path}");
 
                     file_put_contents($export_file_name, $content);
                     if ($verbose) {
