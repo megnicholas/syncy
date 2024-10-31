@@ -91,6 +91,7 @@ if (! function_exists(' sync_process_links')) {
     {
         $total_links = count($links);
         $path = ABSPATH;
+        $dir = WP_PLUGIN_DIR . '/syncy';
 
         foreach ($links as $key => $link) {
 
@@ -100,7 +101,7 @@ if (! function_exists(' sync_process_links')) {
             if (!file_exists($export_file_name)) {
 
                 try {
-                    $content = shell_exec("wp eval-file {$path}index.php --url={$link} --skip-wordpress --path={$path}");
+                    $content = shell_exec("wp-cli eval-file {$path}index.php --url={$link} --skip-wordpress --path={$path}");
 
                     file_put_contents($export_file_name, $content);
                     if ($verbose) {
