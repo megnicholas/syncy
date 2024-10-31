@@ -10,6 +10,8 @@ if (! function_exists(' sync_get_export_file_name')) {
         }
 
         $folder = ABSPATH . "_site";
+        $path = '';
+        $filename = '';
         if (preg_match('/^(?:https?:\/\/)?(?:www\.)?[^\/]+\/?(.*\/)?([^\/]+)$/', $url, $matches)) {
             $path = rtrim($matches[1], '/');
             $filename = $matches[2];

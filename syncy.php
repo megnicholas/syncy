@@ -16,8 +16,15 @@ add this to package.json scripts like this:
 
 filter to add additional urls:
 
-$links = apply_filters('sync_additional_files', $links);
-
+add_filter('sync_additional_files', function ($links) {
+	$links[] = home_url('sitemap_index.xml');
+	$links[] = home_url('post-sitemap.xml');
+	$links[] = home_url('project-sitemap.xml');
+	$links[] = home_url('page-sitemap.xml');
+	$links[] = home_url('main-sitemap.xsl');
+	$links[] = home_url('feed/');
+	return $links;
+});
 Anything else you want to do, do it here:
 add_action('sync_after_process', function($site_folder){},10,1);
  */
