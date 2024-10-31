@@ -27,6 +27,9 @@ add_filter('sync_additional_files', function ($links) {
 });
 Anything else you want to do, do it here:
 add_action('sync_after_process', function($site_folder){},10,1);
+
+add as a submodule:
+git submodule add https://github.com/megnicholas/syncy.git wordpress/wp-content/plugins/syncy
  */
 
 
