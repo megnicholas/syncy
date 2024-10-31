@@ -7,15 +7,17 @@ add_action('admin_bar_menu', function ($wp_admin_bar) {
 		$current_url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 	}
 
-	$args = array(
-		'id'    => 'sync-this-page',
-		'title' => 'Sync This Page',
-		'href'  => add_query_arg('sync', '1', $current_url),
-		'meta'  => array(
-			'class' => 'custom-button-class'
-		)
-	);
-	$wp_admin_bar->add_node($args);
+	if ($current_url) {
+		$args = array(
+			'id'    => 'sync-this-page',
+			'title' => 'Sync',
+			'href'  => add_query_arg('sync', '1', $current_url),
+			'meta'  => array(
+				'class' => 'custom-button-class'
+			)
+		);
+		$wp_admin_bar->add_node($args);
+	}
 }, 1000);
 
 add_action('template_redirect', function () {
@@ -64,4 +66,3 @@ add_action('transition_post_status', function ($new_status, $old_status, $post) 
 		}
 	}
 }, 10, 3);
-
