@@ -72,6 +72,7 @@ if (! function_exists('sync_get_page_links')) {
         $total_pages = ceil($total_posts / $posts_per_page);
 
         // Generate links for each page
+        $slug = rtrim($slug, '/') . '/'; //add a slash to the end
         $page_links[] =  $slug; //first page
         for ($i = 2; $i <= $total_pages; $i++) {
             $page_links[] =  $slug . 'page/' . $i . '/';

@@ -1,16 +1,13 @@
 <?php
 //https://koala.sh/chat?chatId=5998d010-204c-44e1-9f1c-ffa36a4c7b18
 
-
 // Load WordPress
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+if (! defined('ABSPATH')) {
+    exit; // Exit if accessed directly.
 }
 
 $links = array();
 $always_sync_links = array();
-
-
 
 //----------------------------------------------------------------------------------------------
 // Posts and pages
@@ -31,7 +28,7 @@ wp_reset_postdata();
 //----------------------------------------------------------------------------------------------
 // Post indexes and their pages
 //----------------------------------------------------------------------------------------------
-$post_types = array('testimonial','project','post');
+$post_types = get_post_types();
 foreach ($post_types as $post_type) {
     $posts = new WP_Query(array(
         'post_type' => $post_type,
@@ -41,46 +38,50 @@ foreach ($post_types as $post_type) {
 }
 
 //----------------------------------------------------------------------------------------------
-// Categories
+// Terms
 //----------------------------------------------------------------------------------------------
-$categories = get_categories();
-foreach ($categories as $category) {
-    $robots = get_term_meta($category->term_id, 'rank_math_robots', true);
+$taxonomies = get_taxonomies(array(
+    'public' => true,
+));
+foreach ($taxonomies as $taxonomy) {
+    $terms = get_terms(array(
+        'taxonomy'   => $taxonomy,
+        'hide_empty' => true,
+    ));
 
-    if (!($robots && 'noindex' === $robots[0])) {
-
-        //get the url of each page in the category and visit the link
+    foreach ($terms as $term) {
         $query = new WP_Query(array(
-            'category__in' => array($category->term_id), // Get posts in this category
-            'posts_per_page' => -1, // Get all posts to calculate total
+            'post_type' => 'post',
+            'posts_per_page' => -1,
+            'tax_query' => array(
+                array(
+                    'taxonomy' => $taxonomy,
+                    'field' => 'slug',
+                    'terms' => $term->slug,
+                ),
+            ),
         ));
 
-        $links = array_merge($links, sync_get_page_links($query, get_category_link($category->term_id)));
+        $links = array_merge($links, sync_get_page_links($query, get_term_link($term->term_id)));
     }
 }
 
 //robots
 $links[] = home_url('robots.txt');
 
-
 //404
 $always_sync_links[] = home_url('404.html');
 
-//sitemap
-$always_sync_links[] = home_url('sitemap_index.xml');
-$always_sync_links[] = home_url('post-sitemap.xml');
-$always_sync_links[] = home_url('project-sitemap.xml');
-$always_sync_links[] = home_url('page-sitemap.xml');
-$links[] = home_url('main-sitemap.xsl');
-
-//feed
-$always_sync_links[] = home_url('feed/');
+//allow addition of additional
+$always_sync_links = apply_filters('sync_additional_files', $always_sync_links);
 
 // Download each link in the array
 $start_time = new DateTime();
 
 sync_process_links($links, true, false);
 sync_process_links($always_sync_links, true, true);
+
+do_action('sync_after_process', $folder = ABSPATH . "_site");
 
 $end_time = new DateTime();
 $interval = $start_time->diff($end_time);
