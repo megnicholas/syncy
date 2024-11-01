@@ -17,10 +17,14 @@ if (! function_exists(' sync_get_export_file_name')) {
             $filename = $matches[2];
         }
 
+        $full_path = $folder . '/' . ($path !== '' ? $path  . '/' : '') . $filename;
+
         if ($refresh) {
             if ($path === '') {
                 //delete the file
-                unlink($folder . '/' . $path  . '/' . $filename);
+                if (file_exists($full_path)) {
+                    unlink($full_path);
+                }
             } else {
                 //delete the folder and all it's files and subfolders
                 sync_recursive_dir_delete($folder . '/' . $path);
@@ -32,7 +36,7 @@ if (! function_exists(' sync_get_export_file_name')) {
             mkdir($folder . '/' . $path, 0777, true);
         }
 
-        return $folder . '/' . $path  . '/' . $filename;
+        return $full_path;
     }
 }
 
@@ -127,7 +131,7 @@ function sync_get_feeds()
 {
 
     $feed_urls = [];
-    
+
     $feeds = apply_filters('feed_link', [], null);
 
     // Initialize an array to hold feed URLs
