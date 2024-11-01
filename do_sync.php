@@ -76,6 +76,9 @@ $links[] = home_url('robots.txt');
 //404
 $always_sync_links[] = home_url('404.html');
 
+//feeds
+$always_sync_links[] =get_feed_link();
+
 //allow addition of additional
 $always_sync_links = apply_filters('sync_additional_files', $always_sync_links);
 

@@ -122,3 +122,20 @@ if (! function_exists(' sync_process_links')) {
         }
     }
 }
+
+function sync_get_feeds()
+{
+
+    $feed_urls = [];
+    
+    $feeds = apply_filters('feed_link', [], null);
+
+    // Initialize an array to hold feed URLs
+
+    // Loop through each registered feed and get its URL
+    foreach ($feeds as $feed_key => $feed_name) {
+        $feed_urls[$feed_key] = get_feed_link($feed_key);
+    }
+
+    return $feed_urls;
+}
