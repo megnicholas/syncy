@@ -11,3 +11,4 @@
 
 require 'inc/website_funcs.php';
 require 'inc/sync_funcs.php';
+require 'inc/wp-cli.php';

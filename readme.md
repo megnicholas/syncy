@@ -6,7 +6,7 @@ Add this package as a submodule:
 
 Run it  as a script by adding to package.json scripts like this:
     
-`"sync:html": "wp eval-file wordpress/wp-content/plugins/syncy/do_sync.php --path=wordpress"`
+`"sync:html": "wp sync dosync --path=wordpress"`
 
 Add additional urls using filter e.g.:
 
