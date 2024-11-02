@@ -1,9 +1,11 @@
 <?php
 
-function sample_command($args)
+function sync_add_command($args)
 {
     do_sync();
-
     WP_CLI::success('All done.');
 }
-WP_CLI::add_command('sync dosync', 'sample_command');
+
+if (class_exists('WP_CLI')) {
+    WP_CLI::add_command('sync dosync', 'sync_add_command');
+}
