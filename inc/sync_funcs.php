@@ -5,8 +5,12 @@ if (! function_exists(' sync_get_export_file_name')) {
     function sync_get_export_file_name($url, $refresh = false)
     {
 
-        if (str_ends_with($url, '/')) {
-            $url .= 'index.html';
+        //remove trailing slashes
+        $url = rtrim($url,'/');
+
+        //if the file has no extension or this is the home url  then add /index.html
+        if (pathinfo($url, PATHINFO_EXTENSION) === '' || $url === home_url()) {
+            $url .= '/index.html';
         }
 
         $folder = ABSPATH . "_site";
