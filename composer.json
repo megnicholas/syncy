@@ -1,0 +1,16 @@
+{
+    "name": "megnicholas/syncy",
+    "description": "",
+    "keywords": ["wordpress", "plugin"],
+    "homepage": "https://github.com/megnicholas/syncy",
+    "authors": [
+      {
+        "name": "Meghan Nicholas",
+        "homepage": "https://megnicholas.com"
+      }
+    ],
+    "type": "wordpress-plugin",
+    "require": {
+      "php": ">=8.0"
+    }
+  }
