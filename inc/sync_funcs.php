@@ -13,7 +13,7 @@ if (! function_exists(' sync_get_export_file_name')) {
             $url .= '/index.html';
         }
 
-        $folder = ABSPATH . "_site";
+        $folder = ABSPATH . "../../_site";
         $path = '';
         $filename = '';
         if (preg_match('/^(?:https?:\/\/)?(?:www\.)?[^\/]+\/?(.*\/)?([^\/]+)$/', $url, $matches)) {
