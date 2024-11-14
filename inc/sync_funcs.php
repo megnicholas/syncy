@@ -6,7 +6,7 @@ if (! function_exists(' sync_get_export_file_name')) {
     {
 
         //remove trailing slashes
-        $url = rtrim($url,'/');
+        $url = rtrim($url, '/');
 
         //if the file has no extension or this is the home url  then add /index.html
         if (pathinfo($url, PATHINFO_EXTENSION) === '' || $url === home_url()) {
@@ -154,8 +154,8 @@ function do_sync()
     $always_sync_links = array();
 
     // check we are on production
-    if (WP_ENV !== 'production') {
-        echo "Must be production for this to work!\n";
+    if  (defined('WP_ENV') && WP_ENV !== 'production') {
+        echo "This WP install must be production for this to work!\n";
         exit;
     }
 
