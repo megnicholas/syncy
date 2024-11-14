@@ -153,6 +153,12 @@ function do_sync()
     $links = array();
     $always_sync_links = array();
 
+    // check we are on production
+    if (WP_ENV !== 'production') {
+        echo "Must be production for this to work!\n";
+        exit;
+    }
+
     //----------------------------------------------------------------------------------------------
     // Posts and pages
     //----------------------------------------------------------------------------------------------
