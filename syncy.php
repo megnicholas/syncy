@@ -3,7 +3,7 @@
 	Plugin Name: Syncy
 	Plugin URI: https://megnicholas.com
 	Description: Sync Website To Static HTML
-	Version: 1.0
+	Version: 1.0.1
 	Author: Meghan Nicholas
 	Author URI: https://megnicholas.com
 	License: GPLv2 or later
