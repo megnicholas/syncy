@@ -154,7 +154,7 @@ function do_sync()
     $always_sync_links = array();
 
     // check we are on production
-    if  (defined('WP_ENV') && WP_ENV !== 'production') {
+    if  (defined('WP_ENV') && (WP_ENV !== 'production' && WP_ENV !== 'local')) {
         echo "This WP install must be production for this to work!\n";
         exit;
     }
