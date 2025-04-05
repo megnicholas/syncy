@@ -155,7 +155,7 @@ function do_sync()
 
     // check we are on production
     if  (defined('WP_ENV') && (WP_ENV !== 'production' && WP_ENV !== 'local')) {
-        echo "This WP install must be production for this to work!\n";
+        echo "This WP install must be production or local for this to work!\n";
         exit;
     }
 
